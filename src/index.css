@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
+}
+
+:root {
+  --background: 38 33% 93%;
+  --foreground: 274 23% 16%;
+  --border: 29 18% 78%;
+  --input: 29 18% 78%;
+  --ring: 12 66% 49%;
+  --card: 37 37% 96%;
+  --card-foreground: 274 23% 16%;
+  --card-border: 29 18% 78%;
+  --primary: 274 23% 16%;
+  --primary-foreground: 38 33% 93%;
+  --secondary: 12 66% 49%;
+  --secondary-foreground: 38 33% 93%;
+  --muted: 35 17% 85%;
+  --muted-foreground: 274 10% 42%;
+  --accent: 67 62% 64%;
+  --accent-foreground: 274 23% 16%;
+  --radius: 0.25rem;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Instrument Serif', Georgia, serif;
+  --app-font-mono: 'Space Mono', monospace;
+  --shadow-soft: 0 18px 60px rgba(50, 24, 44, .11);
+}
+
+.dark {
+  --background: 274 23% 16%;
+  --foreground: 38 33% 93%;
+  --border: 274 13% 29%;
+  --input: 274 13% 29%;
+  --ring: 12 66% 55%;
+  --card: 274 20% 20%;
+  --card-foreground: 38 33% 93%;
+  --card-border: 274 13% 29%;
+  --primary: 38 33% 93%;
+  --primary-foreground: 274 23% 16%;
+  --secondary: 12 66% 55%;
+  --secondary-foreground: 274 23% 16%;
+  --muted: 274 14% 25%;
+  --muted-foreground: 38 17% 72%;
+  --accent: 67 62% 64%;
+  --accent-foreground: 274 23% 16%;
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; background: hsl(var(--background)); }
+  body { @apply font-sans antialiased bg-background text-foreground; margin: 0; }
+  ::selection { background: hsl(var(--secondary)); color: hsl(var(--primary-foreground)); }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--app-font-serif); }
+  .font-mono-brand { font-family: var(--app-font-mono); }
+  .text-balance { text-wrap: balance; }
+}
+
+.site-shell { overflow: clip; }
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.marquee-track { animation: marquee 26s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.portrait-frame img { filter: saturate(.82) contrast(1.04); transition: transform .9s cubic-bezier(.22,1,.36,1); }
+.portrait-frame:hover img { transform: scale(1.045); }
+.arrow-link svg { transition: transform .35s ease; }
+.arrow-link:hover svg { transform: translate(4px, -4px); }
+.project-row { transition: background-color .35s ease, padding .35s ease; }
+.project-row:hover { background: hsl(var(--muted) / .55); padding-left: 1rem; padding-right: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
